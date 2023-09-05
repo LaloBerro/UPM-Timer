@@ -1,10 +1,11 @@
 {
-    "name": "Editor",
+    "name": "Timer.Runtime.RealtimeTimer.InterfaceAdapters.Realtime",
     "rootNamespace": "",
-    "references": [],
-    "includePlatforms": [
-        "Editor"
+    "references": [
+        "GUID:9e24c92317480024cade264e0d92679c",
+        "GUID:560b04d1a97f54a4e82edc0cbbb69285"
     ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

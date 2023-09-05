@@ -1,7 +1,9 @@
 {
-    "name": "Runtime",
+    "name": "Timer.Runtime.RealtimeTimer.Domain",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:8adfcfebf0e720a46b081988f0195671"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

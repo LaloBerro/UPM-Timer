@@ -1,15 +1,12 @@
 {
-  "name": "com..",
+  "name": "com.lalo.timer",
   "version": "1.0.0",
-  "displayName": "",
-  "description": "",
   "unity": "2020.3",
   "unityRelease": "0b5",
   "documentationUrl": "",
   "changelogUrl": "",
   "licensesUrl": "",
-  "keywords": [
-  ],
+  "keywords": [],
   "author": {
     "name": "",
     "email": "",
@@ -17,12 +14,12 @@
   },
   "type": "tool",
   "hideInEditor": false,
-  "samples": 
-[
-	{
-		"displayName": "Samples",
-		"description": "",
-		"path": "Samples~/"
-	}
-]
+  "samples": [
+    {
+      "displayName": "Samples",
+      "description": "",
+      "path": "Samples~/"
+    }
+  ],
+  "displayName": "Timer"
 }

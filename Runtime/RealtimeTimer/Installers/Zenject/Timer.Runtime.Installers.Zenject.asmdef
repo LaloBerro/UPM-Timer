@@ -1,0 +1,22 @@
+{
+    "name": "Timer.Runtime.Installers.Zenject",
+    "rootNamespace": "",
+    "references": [
+        "GUID:9a72f7cb9eb427f48841ec973b8e4ed2",
+        "GUID:9e24c92317480024cade264e0d92679c",
+        "GUID:be5d5c5e7ade05b4396d0353b951110d",
+        "GUID:8adfcfebf0e720a46b081988f0195671",
+        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
+        "GUID:7346039f9e207644580405556eab4940",
+        "GUID:d5a09d6c0c897bd4bbc086f84e7d1e32"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
