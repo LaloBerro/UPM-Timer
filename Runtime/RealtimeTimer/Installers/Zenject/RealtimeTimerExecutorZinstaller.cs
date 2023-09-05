@@ -12,6 +12,8 @@ namespace Timer.Runtime.Realtime.Installers
                 return;
             
             IRealtimeTimerExecutor realtimeTimerExecutor = new RealtimeTimerExecutor();
+            realtimeTimerExecutor.Initialize();
+            
             ServiceLocator.Instance.Register(realtimeTimerExecutor);
         }
     }
