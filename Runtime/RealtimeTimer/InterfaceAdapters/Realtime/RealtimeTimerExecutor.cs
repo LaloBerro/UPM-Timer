@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UniRx;
-using UniRx.Triggers;
 using UnityEngine;
 
 namespace Timer.Runtime.Realtime.Domain
@@ -9,82 +7,114 @@ namespace Timer.Runtime.Realtime.Domain
     public class RealtimeTimerExecutor : MonoBehaviour, IRealtimeTimerExecutor
     {
         private Dictionary<string, RealtimeTimer> _timers;
-        private IDisposable _updateDisposable;
         private List<string> _finishedTimersToRemove;
+
+        private bool _isInitialized;
 
         public void Initialize()
         {
+            _isInitialized = true;
             _timers = new Dictionary<string, RealtimeTimer>();
             _finishedTimersToRemove = new List<string>();
         }
 
         public void StartTimer(RealtimeTimer realtimeTimer)
         {
+            if(!_isInitialized)
+                Initialize();
+            
             var realtimeTimerId = realtimeTimer.Id;
             if (_timers.ContainsKey(realtimeTimerId))
                 throw new Exception("You are trying to start a timer that is already started");
             
+            realtimeTimer.SetElapsedTime(0);
             _timers.Add(realtimeTimerId, realtimeTimer);
-            
-            StartTimersExecution();
         }
 
-        private void StartTimersExecution()
+        private void Update()
         {
-            _updateDisposable = this.UpdateAsObservable().Subscribe(_ => { UpdateTimers(); });
+            UpdateTimers();
         }
 
         private void UpdateTimers()
         {
-            foreach (var realtimeTimerKV in _timers)
+            if (ReferenceEquals(_timers, null) || _timers.Count <= 0)
+                return;
+            
+            foreach (var (key, realtimeTimer) in _timers)
             {
-                bool isFinished = UpdateTimer(realtimeTimerKV.Value, realtimeTimerKV.Key);
+                if(realtimeTimer.IsPaused)
+                    continue;
+                
+                bool isFinished = UpdateTimer(realtimeTimer);
                 if(!isFinished)
                     continue;
                 
-                _finishedTimersToRemove.Add(realtimeTimerKV.Key);
+                _finishedTimersToRemove.Add(key);
             }
             
             if(_finishedTimersToRemove.Count <= 0)
                 return;
 
-            foreach (var key in _finishedTimersToRemove)
-            {
-                _timers.Remove(key);
-            }
-            
-            _timers.Clear();
+            FinishTimers();
         }
-
-        private bool UpdateTimer(RealtimeTimer realtimeTimer, string key)
+        
+        private bool UpdateTimer(RealtimeTimer realtimeTimer)
         {
             float elapsedTime = realtimeTimer.ElapsedTime;
             elapsedTime += Time.deltaTime;
             realtimeTimer.SetElapsedTime(elapsedTime);
-
-            if (elapsedTime < realtimeTimer.Duration)
+            
+            float seconds = elapsedTime % 60f;
+            
+            if (seconds < realtimeTimer.Duration)
                 return false;
-
-            realtimeTimer.FinishTimer();
+            
             return true;
         }
-
-        public void Pause(string id)
+        
+        private void FinishTimers()
         {
-            bool isContained = _timers.TryGetValue(id, out RealtimeTimer realtimeTimer);
-            if (!isContained)
-                throw new Exception("Error trying to pause a timer that is not contained");
-            
-            _updateDisposable.Dispose();
+            foreach (var key in _finishedTimersToRemove)
+            {
+                RealtimeTimer realtimeTimer = _timers[key];
+                _timers.Remove(key);
+                realtimeTimer.FinishTimer();
+            }
+
+            _finishedTimersToRemove.Clear();
         }
 
-        public void Resume(string id)
+        public void PauseAll()
         {
-            bool isContained = _timers.TryGetValue(id, out RealtimeTimer realtimeTimer);
-            if (!isContained)
-                throw new Exception("Error trying to resume a timer that is not contained");
+            if (ReferenceEquals(_timers, null) || _timers.Count <= 0)
+                return;
             
-            StartTimersExecution();
+            foreach (var (key, realtimeTimer) in _timers)
+            {
+                realtimeTimer.Pause();
+            }
+        }
+
+        public void ResumeAll()
+        {
+            if (ReferenceEquals(_timers, null) || _timers.Count <= 0)
+                return;
+
+            foreach (var (key, realtimeTimer) in _timers)
+            {
+                realtimeTimer.Resume();
+            }
+        }
+
+        public float GetElapsedTime(string id)
+        {
+            bool isContained = _timers.ContainsKey(id);
+            if (!isContained)
+                throw new Exception("Error trying to Get Elapsed Time because the timer is not contained");
+
+            float elapsedTime = _timers[id].ElapsedTime;
+            return elapsedTime;
         }
     }
 }

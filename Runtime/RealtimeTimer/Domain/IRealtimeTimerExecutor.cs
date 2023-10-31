@@ -4,7 +4,8 @@
     {
         void Initialize();
         void StartTimer(RealtimeTimer realtimeTimer);
-        void Pause(string id);
-        void Resume(string id);
+        void PauseAll();
+        void ResumeAll();
+        float GetElapsedTime(string id);
     }
 }

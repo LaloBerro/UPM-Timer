@@ -64,23 +64,23 @@ namespace Timer.Editor.Tests
         }
         
         [Test]
-        public void PauseTimer_CheckIfMethodIsCalled()
+        public void PauseAllTimers_CheckIfMethodIsCalled()
         {
             //Act
-            _realtimeTimer.Pause();
+            _realtimeTimerExecutor.PauseAll();
             
             //Assert
-            _realtimeTimerExecutor.ReceivedWithAnyArgs().Pause("");
+            _realtimeTimer.ReceivedWithAnyArgs().Pause();
         }
         
         [Test]
-        public void ResumeTimer_CheckIfMethodIsCalled()
+        public void ResumeAllTimers_CheckIfMethodIsCalled()
         {
             //Act
-            _realtimeTimer.Resume();
+            _realtimeTimerExecutor.ResumeAll();
             
             //Assert
-            _realtimeTimerExecutor.ReceivedWithAnyArgs().Resume("");
+            _realtimeTimer.ReceivedWithAnyArgs().Resume();
         }
     }   
 }
