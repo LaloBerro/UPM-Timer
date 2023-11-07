@@ -23,7 +23,7 @@ namespace Timer.Runtime.Realtime.Domain
             if(!_isInitialized)
                 Initialize();
             
-            var realtimeTimerId = realtimeTimer.Id;
+            string realtimeTimerId = realtimeTimer.Id;
             if (_timers.ContainsKey(realtimeTimerId))
                 throw new Exception("You are trying to start a timer that is already started");
             
