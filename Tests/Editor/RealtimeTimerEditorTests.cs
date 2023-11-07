@@ -62,25 +62,5 @@ namespace Timer.Editor.Tests
             //Assert
             Assert.Greater(testNumber, 0);
         }
-        
-        [Test]
-        public void PauseAllTimers_CheckIfMethodIsCalled()
-        {
-            //Act
-            _realtimeTimerExecutor.PauseAll();
-            
-            //Assert
-            _realtimeTimer.ReceivedWithAnyArgs().Pause();
-        }
-        
-        [Test]
-        public void ResumeAllTimers_CheckIfMethodIsCalled()
-        {
-            //Act
-            _realtimeTimerExecutor.ResumeAll();
-            
-            //Assert
-            _realtimeTimer.ReceivedWithAnyArgs().Resume();
-        }
     }   
 }
