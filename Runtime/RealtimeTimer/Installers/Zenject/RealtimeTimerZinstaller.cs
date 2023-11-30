@@ -12,5 +12,11 @@ namespace Timer.Runtime.Realtime.Installers
             IRealtimeTimerExecutor realtimeTimerExecutor = ServiceLocator.Instance.Get<IRealtimeTimerExecutor>();
             return new RealtimeTimer(realtimeTimerExecutor);
         }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            ServiceLocator.Instance.Remove<IRealtimeTimerExecutor>();
+        }
     }
 }
