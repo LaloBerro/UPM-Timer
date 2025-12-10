@@ -4,8 +4,7 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "Timer.Runtime.RealtimeTimer.InterfaceAdapters.Realtime",
-        "Timer.Runtime.RealtimeTimer.Domain"
+        "Timer.Runtime.Core.Domain"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

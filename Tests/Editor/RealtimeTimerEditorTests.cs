@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using NSubstitute;
 using NUnit.Framework;
 using Timer.Runtime.Realtime.Domain;
-using UnityEngine;
-using UnityEngine.TestTools;
 
 namespace Timer.Editor.Tests
 {
@@ -31,7 +27,7 @@ namespace Timer.Editor.Tests
         public void SetElapsedTime_CorrectValue()
         {
             //Act
-            var elapsedTime = 30;
+            int elapsedTime = 30;
             _realtimeTimer.SetElapsedTime(elapsedTime);
             
             //Assert
